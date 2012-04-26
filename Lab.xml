@@ -1,0 +1,42 @@
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Lab xmlns:i="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://schemas.datacontract.org/2004/07/ContentFramework.Core.Models">
+ 
+  <Id>WCFWebAPI</Id>
+ 
+  <Author>
+  
+   <Blog>
+  
+   </Blog>
+ 
+   <Email>
+  
+   </Email>
+   
+   <Name></Name>
+ 
+ </Author>
+ 
+ <Description>This Hands-On Lab is a step-by-step guide that is designed to help you debug a simple application by configuring a special trace listener that can write its output directly into a table in Windows Azure storage emulator. To produce diagnostic data, you instrument the application to write its trace information using standard methods in the System.Diagnostics namespace. Finally, you create a simple log viewer application that can retrieve and display the contents of the diagnostics table.</Description>
+ 
+ <Document ConversionType="Html">.\HOL.md</Document>
+ 
+ <Title>Build RESTful APIs with WCF Web API</Title>
+ 
+ <Version>1.2.0</Version>
+ 
+ <Source>.\Source</Source>
+ 
+ <DependencyChecker ScriptsFolder="env:PackagePath\Assets\DependencyChecker\scripts">.\Source\Setup\Dependencies.dep</DependencyChecker>
+ 
+ <Technologies>
+ 
+   <Technology>Visual Studio</Technology>
+
+	<Technology>Windows Communication Foundation</Technology>
+ 
+ </Technologies>
+
+</Lab>
