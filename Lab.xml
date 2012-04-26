@@ -3,7 +3,7 @@
 <Lab xmlns:i="http://www.w3.org/2001/XMLSchema-instance" 
 xmlns="http://schemas.datacontract.org/2004/07/ContentFramework.Core.Models">
  
-  <Id>WCFWebAPI</Id>
+  <Id>DebuggingApps</Id>
  
   <Author>
   
@@ -23,7 +23,7 @@ xmlns="http://schemas.datacontract.org/2004/07/ContentFramework.Core.Models">
  
  <Document ConversionType="Html">.\HOL.md</Document>
  
- <Title>Build RESTful APIs with WCF Web API</Title>
+ <Title>Debugging Applications in Windows Azure</Title>
  
  <Version>1.2.0</Version>
  
