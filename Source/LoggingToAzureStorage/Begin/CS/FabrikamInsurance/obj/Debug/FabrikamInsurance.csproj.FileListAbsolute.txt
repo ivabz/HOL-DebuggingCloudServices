@@ -1,0 +1,7 @@
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\bin\FabrikamInsurance.dll
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\bin\FabrikamInsurance.pdb
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\bin\InsurancePolicy.dll
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\bin\InsurancePolicy.pdb
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\obj\Debug\ResolveAssemblyReference.cache
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\obj\Debug\FabrikamInsurance.dll
+C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\FabrikamInsurance\obj\Debug\FabrikamInsurance.pdb
