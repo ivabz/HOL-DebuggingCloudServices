@@ -52,9 +52,9 @@ If you are not familiar with the Visual Studio Code Snippets, and want to learn 
 
 This hands-on lab includes the following exercise:
 
-1. Learn What Features and Techniques are Available in Visual Studio and Windows Azure
+1. Learn What Features and Techniques are Available in Visual Studio and Windows Azure.
 
-1. Adding IntelliTrace  to  Debug the Application 
+1. Adding diagnostic trace.
 
  
 Estimated time to complete this lab: **40 minutes**.
@@ -155,7 +155,7 @@ In this task, you create a new Windows Azure Project to prepare the application 
   1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
  
-### Exercise 2: Adding IntelliTrace  to the Application ###
+### Exercise 2: Adding diagnostic trace ###
 
 In this exercise, you debug a simple application by configuring a special trace listener that can write its output directly into a table in Windows Azure storage emulator.  To produce diagnostic data, you instrument the application to write its trace information using standard methods in the System.Diagnostics namespace. Finally, you create a simple log viewer application that can retrieve and display the contents of the diagnostics table.
 
