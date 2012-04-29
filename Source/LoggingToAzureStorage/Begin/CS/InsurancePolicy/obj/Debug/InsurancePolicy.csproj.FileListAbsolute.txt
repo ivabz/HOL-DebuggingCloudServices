@@ -1,5 +1,0 @@
-C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\InsurancePolicy\bin\Debug\InsurancePolicy.dll
-C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\InsurancePolicy\bin\Debug\InsurancePolicy.pdb
-C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\InsurancePolicy\obj\Debug\ResolveAssemblyReference.cache
-C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\InsurancePolicy\obj\Debug\InsurancePolicy.dll
-C:\WATK\Labs\WindowsAzureDebugging\Source\LoggingToAzureStorage\Begin\CS\InsurancePolicy\obj\Debug\InsurancePolicy.pdb
