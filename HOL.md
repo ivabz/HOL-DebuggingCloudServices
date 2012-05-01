@@ -725,7 +725,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 	      progress.Enable();
 	    }, null, 0, 10000);
 	
-	    Console.ReadKey(true);
+	    Console.Readline();
 	  }
 	}
 ````
@@ -749,7 +749,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 	                             progress.Enable()
 	                           End Sub, Nothing, 0, 10000)
 	
-	    Console.ReadKey(True)
+	    Console.ReadLine()
 	  End Sub
 	
 	End Module
