@@ -1,4 +1,4 @@
-#Debugging Applications in Windows Azure#
+﻿#Debugging Applications in Windows Azure#
 
 ## Overview ##
 
@@ -95,15 +95,11 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 
 In this task, you create a new Windows Azure Project to prepare the application for deployment to Windows Azure.
 
-  1. Add a new Windows Azure Project to the solution. To do this, in the**File** menu, point to **Add** and then select **New Project**. In the **Add** **New Project** dialog, expand the language of your preference (Visual C# or Visual Basic) in the **Installed Templates** list and then select **Cloud**. Choose the **Windows Azure Project** template, set the **Name** of the project to **FabrikamInsuranceService** and accept the proposed location in the folder of the solution. Click **OK** to create the project.
+  1. Add a new Windows Azure Project to the solution. To do this, in the**File** menu, point to **Add** and then select **New Project**. In the **Add** **New Project** dialog, expand **Visual C#** in the **Installed Templates** list and then select **Cloud**. Choose the **Windows Azure Project** template, set the **Name** of the project to **FabrikamInsuranceService** and accept the proposed location in the folder of the solution. Click **OK** to create the project.
    
 	![creating-a-new-windows-azure-project-c](images/creating-a-new-windows-azure-project-c.png?raw=true)
 
 	_Creating a new Windows Azure Project (C#)_
-
-	![Creating a new Windows Azure Project Visual Basic](./images/Creating-a-new-Windows-Azure-Project-Visual-Basic.png?raw=true "Creating a new Windows Azure Project Visual Basic")
- 
-	_Creating a new Windows Azure Project (Visual Basic)_
 
   1. In the **New Windows Azure Project** dialog, click **OK** without adding any new roles to the solution.
 
@@ -118,7 +114,7 @@ In this task, you create a new Windows Azure Project to prepare the application 
  
 	_Adding references to the Windows Azure support assemblies to the project_
 
-  1. Now, add a role entry point to the MVC application. To do this, in **Solution Explorer**, right-click the **FabrikamInsurance** project, point to **Add**, and then select **Existing Item**. In the **Add Existing Item** dialog, browse to **Assets** in the **Source** folder of the lab. Inside this folder, choose the folder for the language of your project (Visual C# or Visual Basic), select **WebRole.cs** or **WebRole.vb**, and then click **Add**.
+  1. Now, add a role entry point to the MVC application. To do this, in **Solution Explorer**, right-click the **FabrikamInsurance** project, point to **Add**, and then select **Existing Item**. In the **Add Existing Item** dialog, browse to **Assets** in the **Source** folder of the lab. Inside this folder, choose **C#** folder, select **WebRole.cs**, and then click **Add**.
 
 	>**Note:** The **WebRole** class is a **RoleEntryPoint** derived class that contains methods that Windows Azure calls when it starts, runs, or stops the role. The provided code is the same that Visual Studio generates when you create a new Windows Azure Project.
 
@@ -167,43 +163,27 @@ In the previous exercise, you briefly saw how to debug your application with Vis
 
 In this task, you add a TraceListener to the project capable of logging diagnostics data directly into table storage, where you can easily retrieve it with a simple query. The source code for this project is already provided for you in the **Assets** folder of the lab. More information on the Trace Listener can be found here: [http://msdn.microsoft.com/en-us/library/system.diagnostics.tracelistener.aspx](http://msdn.microsoft.com/en-us/library/system.diagnostics.tracelistener.aspx)
 
-1. In **Solution Explorer**, right-click the **Begin** solution, point to **Add** and then select **Existing Project**. In the **Add Existing Project** dialog, browse to **Assets** in the **Source** folder of the lab, select the folder for the language of your choice (Visual C# or Visual Basic), then navigate to **AzureDiagnostics** inside this folder, select the **AzureDiagnostics** project file and click **Open**.
+1. In **Solution Explorer**, right-click the **Begin** solution, point to **Add** and then select **Existing Project**. In the **Add Existing Project** dialog, browse to **Assets** in the **Source** folder of the lab, select the **C#** folder, then navigate to **AzureDiagnostics** inside this folder, select the **AzureDiagnostics** project file and click **Open**.
 
 1. Add a reference to the **AzureDiagnostics** library in the web role project. To do this, in **Solution Explorer**, right-click the **FabrikamInsurance** project, and select **Add Reference**. In the **Add Reference** dialog, switch to the **Projects** tab, select **AzureDiagnostics** in the list of projects, and then click **OK**.
 
-1. Open **Global.asax.cs** (for Visual C# projects) or **Global.asax.vb** (for Visual Basic projects) in the **FabrikamInsurance** project and insert the following namespace directives.
+1. Open **Global.asax.cs** in the **FabrikamInsurance** project and insert the following namespace directives.
 
 	````C#
 	using Microsoft.WindowsAzure;
 	using Microsoft.WindowsAzure.ServiceRuntime;
 ````
-
-	````VB
-	Imports Microsoft.WindowsAzure
-	Imports Microsoft.WindowsAzure.ServiceRuntime
-````
-
 1. Add the following (highlighted) method inside the **MvcApplication** class.
 
 	 (Code Snippet - WindowsAzureDebugging-Ex1-ConfigureTraceListener-CS)
-
- 	![E2-T3-4_CS(Highlighted)](./images/E2-T3-4_CS(Highlighted\).png?raw=true "E2-T3-4_CS(Highlighted)")
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-ConfigureTraceListener-VB_)
-
- 	![E2-T3-4_VB(Highlighted)](./images/E2-T3-4_VB(Highlighted\).png?raw=true "E2-T3-4_VB(Highlighted)")
+ 	![E2-T3-4_CS(Highlighted)](./images/E2-T3-4_CS(Highlighted\).png?raw=true "E2-T3-4_CS(Highlighted)
 
 	>**Note:** The **ConfigureTraceListener** method retrieves the _EnableTableStorageTraceListener_ configuration setting and, if its value is _true_, it creates a new instance of the **TableStorageTraceListener** class, defined in the project that you added to the solution earlier, and then adds it to the collection of available trace listeners. Note that the method also enables the **AutoFlush** property of the **Trace** object to ensure that trace messages are written immediately to table storage, allowing you to retrieve them as they occur.
 
 1. Now, insert the following (highlighted) code in the **Application_Start** method to set up the Windows Azure storage configuration settings publisher and to enable the **TableStorageTraceListener**. 
 
 	(Code Snippet - WindowsAzureDebugging-Ex1- Application_Start-CS)
-
- 	![E2-T3-5_CS(Highlighted)](./images/E2-T3-5_CS(Highlighted\).png?raw=true "E2-T3-5_CS(Highlighted)")
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-Application_Start-VB_)
-
- 	![E2-T3-5_VB(Highlighted)](./images/E2-T3-5_VB(Highlighted\).png?raw=true "E2-T3-5_VB(Highlighted)")
+ 	![E2-T3-5_CS(Highlighted)](./images/E2-T3-5_CS(Highlighted\).png?raw=true "E2-T3-5_CS(Highlighted)
 
 	>**Note:** TraceListeners can be added by configuring them in the **system.diagnostics** section of the configuration file. However, in this case, the role creates the listener programmatically allowing you to enable the listener only when you need it and while the service is running.
 
@@ -219,33 +199,19 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 1. Locate the **RoleEnvironmentChanging** event handler inside the **WebRole** class and replace its body with the following (highlighted) code.
 
-	(Code Snippet - WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-CS)
-
- 	![E2-T3-7_CS(Highlighted)](./images/E2-T3-7_CS(Highlighted\).png?raw=true "E2-T3-7_CS(Highlighted)")
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-VB_)
-
- 	![E2-T3-7_VB(Highlighted)](./images/E2-T3-7_VB(Highlighted\).png?raw=true "E2-T3-7_VB(Highlighted)")
+	(Code Snippet - WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-CS)	![E2-T3-7_CS(Highlighted)](./images/E2-T3-7_CS(Highlighted\).png?raw=true "E2-T3-7_CS(Highlighted)
 
 	>**Note:** The **RoleEnvironmentChanging** event occurs before a change to the service configuration is applied to the running instances of the role. The updated handler scans the collection of changes and restarts the role instance for any configuration setting change, unless the change only involves the value of the _EnableTableStorageTraceListener_ setting.  If this particular setting changes, the role instance is allowed to apply the change without restarting it.
 
-1. Now, add the following (highlighted) code to define a handler for the **RoleEnvironmentChanged** event into the **Global.asax.cs** (for Visual C# projects) or **Global.asax.vb** (for Visual Basic projects).
+1. Now, add the following (highlighted) code to define a handler for the **RoleEnvironmentChanged** event into the **Global.asax.cs**.
 
-	(Code Snippet - WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-CS)
-
- 	![E2-T3-8_CS(Highlighted)](./images/E2-T3-8_CS(Highlighted\).png?raw=true "E2-T3-8_CS(Highlighted)")
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-VB_)
-
- 	![E2-T3-8_VB(Highlighted)](./images/E2-T3-8_VB(Highlighted\).png?raw=true "E2-T3-8_VB(Highlighted)")
+	(Code Snippet - WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-CS)	![E2-T3-8_CS(Highlighted)](./images/E2-T3-8_CS(Highlighted\).png?raw=true "E2-T3-8_CS(Highlighted)
 
 	>**Note:** The **RoleEnvironmentChanged** event handler occurs after a change to the service configuration has been applied to the running instances of the role. If this change involves the _EnableTableStorageTraceListener_ configuration setting, the handler calls the **ConfigureTraceListener** method to enable or disable the trace listener.
 
 1. Finally, insert the following (highlighted) line into the **Application_Start** method, immediately after to the call to the **ConfigureTraceListener** method, to subscribe to the **Changed** event of the **RoleEnvironment**.
 
- 	![E2-T3-9_CS(Highlighted)](./images/E2-T3-9_CS(Highlighted\).png?raw=true "E2-T3-9_CS(Highlighted)")
-
- 	![E2-T3-9_VB(Highlighted)](./images/E2-T3-9_VB(Highlighted\).png?raw=true "E2-T3-9_VB(Highlighted)")
+ 	![E2-T3-9_CS(Highlighted)](./images/E2-T3-9_CS(Highlighted\).png?raw=true "E2-T3-9_CS(Highlighted)
 
 1. To instrument the application and write diagnostics information to the error log, add a global error handler to the application. To do this, insert the following method into the **MVCApplication** class.
 
@@ -263,19 +229,6 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 	````
 
-	(Code Snippet - _WindowsAzureDebugging-Ex1-Application_Error-VB_)
-
-	````VB.NET
-	Public Class MvcApplication
-	  Inherits System.Web.HttpApplication
-	  ...
-	  Protected Sub Application_Error()
-	    Dim lastError = Server.GetLastError()
-	    System.Diagnostics.Trace.TraceError(lastError.Message)
-	  End Sub
-	End Class
-	````
-
 	> **Note:** The **Application_Error** event is raised to catch any unhandled ASP.NET errors while processing a request. The event handler shown above retrieves a reference to the unhandled exception object using **Server.GetLastError** and then uses the **TraceError** method of the **System.Diagnostics.Trace** class to log the error message. 
 
 	>Note that the **Trace** object outputs the message to each listener in its **Listeners** collection, including the **TableStorageTraceListener**, provided you enable it in the configuration settings. Typically, the collection also contains instances of the **DefaultTraceListener** class and, when executing the solution in the compute emulator, the **DevelopmentFabricTraceListener**.  The latter writes its output to a log that you can view from the Compute Emulator UI. 
@@ -286,7 +239,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
  
 	_Trace object Listeners collection showing configured trace listeners_
 
-1. Open the **QuoteController.cs** (for Visual C# projects) or **QuoteController.vb** (for Visual Basic projects) file in the **Controllers** folder of the **FabrikamInsurance** project and add the following method. 
+1. Open the **QuoteController.cs** file in the **Controllers** folder of the **FabrikamInsurance** project and add the following method. 
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-Controller OnException method-CS)
 
@@ -302,58 +255,31 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 ````
 
-	(Code Snippet - _WindowsAzureDebugging-Ex1-Controller OnException method-VB_)
-
-	````VB.NET
-	<HandleError()>
-	Public Class QuoteController
-	  Inherits Controller
-	  ...
-	  Protected Overrides Sub OnException(ByVal filterContext As ExceptionContext)
-	    System.Diagnostics.Trace.TraceError(filterContext.Exception.Message)
-	  End Sub
-	End Class
-````
-
 	> **Note:** The **OnException** method is called when an unhandled exception occurs during the processing of an action in a controller. For MVC applications, unhandled errors are typically caught at the controller level, provided they occur during the execution of a controller action and that the action (or controller) has been decorated with a **HandleErrorAttribute**. To log exceptions in controller actions, you need to override the **OnException** method of the controller because the **Application_Error** is bypassed when the error-handling filter catches the exceptions. 
 
 	> By default, when an action method with the **HandleErrorAttribute** attribute throws any exception, MVC displays the **Error** view that is located in the **~/Views/Shared** folder.
 
 1. In addition to error logging, tracing can also be useful for recording other significant events during the execution of the application. For example, for registering whenever a given controller action is invoked. To show this feature, insert the following (highlighted) tracing statement at the start of the **Calculator** method to log a message whenever this action is called. 
 
- 	![E2-T3-12_CS(Highlighted)](./images/E2-T3-12_CS(Highlighted\).png?raw=true "E2-T3-12_CS(Highlighted)")
-
- 	![E2-T3-12_VB(Highlighted)](./images/E2-T3-12_VB(Highlighted\).png?raw=true "E2-T3-12_VB(Highlighted)")
+	![E2-T3-12_CS(Highlighted)](./images/E2-T3-12_CS(Highlighted\).png?raw=true "E2-T3-12_CS(Highlighted)")
 
 1. Similarly, add a tracing statement to the **About** action, as shown (highlighted) below.
 
  	![E2-T3-13_CS(Highlighted)](./images/E2-T3-13_CS(Highlighted\).png?raw=true "E2-T3-13_CS(Highlighted)")
-
- 	![E2-T3-13_VB(Highlighted)](./images/E2-T3-13_VB(Highlighted\).png?raw=true "E2-T3-13_VB(Highlighted)")
  
 #### Task 2 - Creating a Log Viewer Tool ####
 
 At this point, the application is ready for tracing and can send all its diagnostics output to a table in storage services. To view the trace logs, you now create a simple log viewer application that will periodically query the table and retrieve all entries added since it was last queried.
 
-1. Add a new console application project to the solution. To create the project, in the **File** menu, point to **Add**, and then select **New Project**. In the **Add New Project** dialog, expand node for the language of your choice (Visual C# or Visual Basic) in the **Installed Templates** tree view, select the **Windows** category, and then the **Console Application** template. Set the name of the project to **LogViewer**, accept the proposed location inside the solution folder, and then click **OK**.
+1. Add a new console application project to the solution. To create the project, in the **File** menu, point to **Add**, and then select **New Project**. In the **Add New Project** dialog, expand **Visual C#** node in the **Installed Templates** tree view, select the **Windows** category, and then the **Console Application** template. Set the name of the project to **LogViewer**, accept the proposed location inside the solution folder, and then click **OK**.
 
 1. Right-click the new **LogViewer** project in **Solution Explorer** and select **Properties**. 
-
-	**For Visual C# projects**:
 
 	In the properties window, switch to the **Application** page, and then change the **Target framework** to _.NET Framework 4_.
 
  	![Configuring the target framework for the project Visual C](./images/Configuring-the-target-framework-for-the-project-Visual-C.png?raw=true "Configuring the target framework for the project Visual C")
  
 	_Configuring the target framework for the project (Visual C#)_
-
-	**For Visual Basic projects:**
-
-	In the properties window, switch to the **Compile** page and then click **Advanced Compile Options**. In the **Advanced Compiler Settings** dialog, select _.NET Framework 4_ in the **Target framework** drop down list, and then click **OK**.
-
- 	![Configuring the target framework for the project Visual Basic](./images/Configuring-the-target-framework-for-the-project-Visual-Basic.png?raw=true "Configuring the target framework for the project Visual Basic")
- 
-	_Configuring the target framework for the project (Visual Basic)_
 
 	>**Note:** The client profile is not suitable in this case because the application will use the StorageClient API to retrieve log data from table storage. This API relies on functionality available only in the full .NET Framework 4 distribution.
 
@@ -367,9 +293,9 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 1. Next, add a reference to the diagnostics project in the solution. Repeat the previous step to open the **Add Reference** dialog, only this time select the **Projects** tab, select the **AzureDiagnostics** project and click **OK**.
 
-1. Add a class to display a simple progress indicator in the console window to the project. To do this, in **Solution Explorer**, right-click **LogViewer**, point to **Add**, and select**Existing Item**. In the **Add Existing Item** dialog, browse to **Assets** in the **Source** folder of the lab, select the folder for the language of the project (Visual C# or Visual Basic), select the **ProgressIndicator.[cs|.vb]** file, and then click **Add**.
+1. Add a class to display a simple progress indicator in the console window to the project. To do this, in **Solution Explorer**, right-click **LogViewer**, point to **Add**, and select**Existing Item**. In the **Add Existing Item** dialog, browse to **Assets** in the **Source** folder of the lab, select **Visual C#** folder, select the **ProgressIndicator.cs** file, and then click **Add**.
 
-1. In **Solution Explorer**, double-click **Program.cs** or **Module1.vb** to open this file and insert the following namespace declarations at the top of the file.
+1. In **Solution Explorer**, double-click **Program.cs** to open this file and insert the following namespace declarations at the top of the file.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer namespaces-CS)
 
@@ -382,42 +308,13 @@ At this point, the application is ready for tracing and can send all its diagnos
 	using AzureDiagnostics;
 ````
 
-	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer namespaces-VB_)
-
-	````VB.NET
-	Imports System.Configuration
-	Imports System.Data.Services.Client
-	Imports System.Threading
-	Imports Microsoft.WindowsAzure
-	Imports Microsoft.WindowsAzure.StorageClient
-	Imports AzureDiagnostics
-	````
-
-1. For Visual Basic projects only, reformulate the **Sub Main** making it **Public** and adding a string array parameter named **args**.
-
-	````VB.NET
-	Module Module1
-	
-	  Public Sub Main(ByVal args() As String)
-	
-	  End Sub
-	
-	End Module
-	````
-
-1. Define the following (highlighted) members in the **Program** class (for Visual C# projects) or the **Module1** module (for Visual Basic projects).
+1. Define the following (highlighted) members in the **Program** class.
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-CS_)
 
- 	![E2-T4-9_CS_Highlighted)](./images/E2-T4-9_CS(Highlighted\).png?raw=true "E2-T4-9_CS(Highlighted)")
+ 	![E2-T4-9_CS_Highlighted)](./images/E2-T4-9_CS(Highlighted\).png?raw=true "E2-T4-9_CS(Highlighted)
 
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-VB_)
-
- 	![E2-T4-9_VB(Highlighted)](./images/E2-T4-9_VB(Highlighted\).png?raw=true "E2-T4-9_VB(Highlighted)")
-
-
-1. Next, insert the **QueryLogTable** method into the class or module.
+1. Next, insert the **QueryLogTable** method into the class.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-QueryLogTable method-CS)
 
@@ -444,25 +341,6 @@ At this point, the application is ready for tracing and can send all its diagnos
 	}
 ````
 
-	(Code Snippet - _WindowsAzureDebugging-Ex1-QueryLogTable method-VB_)
-
-	````VB.NET
-	Module Module1
-	  ...
-	  Private Sub QueryLogTable(ByVal tableStorage As CloudTableClient)
-	    Dim context As TableServiceContext = tableStorage.GetDataServiceContext()
-	    Dim query As DataServiceQuery = TryCast(context.CreateQuery(Of LogEntry)(TableStorageTraceListener.DIAGNOSTICS_TABLE).Where(Function(entry) entry.PartitionKey.CompareTo(lastPartitionKey) > 0 OrElse (entry.PartitionKey = lastPartitionKey AndAlso entry.RowKey.CompareTo(lastRowKey) > 0)), DataServiceQuery)
-	
-	    For Each entry As AzureDiagnostics.LogEntry In query.Execute()
-	      Console.WriteLine("{0} - {1}", entry.Timestamp, entry.Message)
-	      lastPartitionKey = entry.PartitionKey
-	      lastRowKey = entry.RowKey
-	    Next
-	  End Sub
-	  ...
-	End Module
-	````
-
 	>**Note:** The rows in the diagnostic log table are stored with a primary key composed by the partition and row key properties, where both are based on the event tick count of the corresponding log entry and are thus ordered chronologically. The **QueryLogTable** method queries the table to retrieve all rows whose primary key value is greater than the last value obtained during the previous invocation of this method. This ensures that each time it is called, the method only retrieves new entries added to the log.
 
 1. Finally, to complete the changes, insert the following (highlighted) code into the body of method **Main**.
@@ -470,11 +348,6 @@ At this point, the application is ready for tracing and can send all its diagnos
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer Main method-CS)
 
  	![E2-T4-11_CS_Highlighted)](./images/E2-T4-11_CS(Highlighted\).png?raw=true "E2-T4-11_CS(Highlighted)")
-
-	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer Main method-VB_)
-
- 	![E2-T4-11_CS_Highlighted)](./images/E2-T4-11_CS(Highlighted\).png?raw=true "E2-T4-11_CS(Highlighted)")
-
 
 	>**Note:** The inserted code initializes the Windows Azure storage account information, creates the diagnostics table if necessary, and then starts a timer that periodically calls the **QueryLogMethod** defined in the previous step to display new entries in the diagnostics log.
 
