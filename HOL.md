@@ -1,4 +1,4 @@
-﻿#Debugging Applications in Windows Azure#
+?#Debugging Applications in Windows Azure#
 
 ## Overview ##
 
@@ -84,11 +84,11 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 1. Press **F5** to build and run the solution. The application should launch in the Web Development Server and open its **Auto Insurance Quotes** page in your browser.
 1. To explore its operation, complete the form by choosing any combination of values from the **Vehicle Details** drop down lists and then click **Calculate** to obtain a quote for the insurance premium. Notice that after you submit the form, the page refreshes and shows the calculated amount.
 
-  ![Exploring the Fabrikam Insurance application](./images/Exploring-the-Fabrikam-Insurance-application.png?raw=true "Exploring the Fabrikam Insurance application")
+	![Exploring the Fabrikam Insurance application](./images/Exploring-the-Fabrikam-Insurance-application.png?raw=true "Exploring the Fabrikam Insurance application")
   
-  _Exploring the Fabrikam Insurance application_
+	_Exploring the Fabrikam Insurance application_
 
-  1. Press **SHIFT + F5** to stop debugging and shut down the application.
+1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
  
 #### Task 2 - Running the Application as a Windows Azure Project ####
@@ -96,7 +96,8 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 In this task, you create a new Windows Azure Project to prepare the application for deployment to Windows Azure.
 
   1. Add a new Windows Azure Project to the solution. To do this, in the**File** menu, point to **Add** and then select **New Project**. In the **Add** **New Project** dialog, expand the language of your preference (Visual C# or Visual Basic) in the **Installed Templates** list and then select **Cloud**. Choose the **Windows Azure Project** template, set the **Name** of the project to **FabrikamInsuranceService** and accept the proposed location in the folder of the solution. Click **OK** to create the project.
-      ![creating-a-new-windows-azure-project-c](images/creating-a-new-windows-azure-project-c.png?raw=true)
+   
+	![creating-a-new-windows-azure-project-c](images/creating-a-new-windows-azure-project-c.png?raw=true)
 
 	_Creating a new Windows Azure Project (C#)_
 
