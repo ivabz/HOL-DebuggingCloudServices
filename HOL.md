@@ -218,7 +218,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-ConfigureTraceListener-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Public Class MvcApplication
 	  Inherits System.Web.HttpApplication
 	  ...
@@ -267,7 +267,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Application_Start-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Public Class MvcApplication
 	  Inherits System.Web.HttpApplication
 	  ...
@@ -319,7 +319,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Public Class WebRole
 	  Inherits RoleEntryPoint
 	  ...
@@ -358,7 +358,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Public Class MvcApplication
 	  Inherits System.Web.HttpApplication
 	  ...
@@ -399,7 +399,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 	````
 
-	````VisualBasic
+	````VB.NET
 	Public Class MvcApplication
 	  Inherits System.Web.HttpApplication
 	  ...
@@ -436,7 +436,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Application_Error-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Public Class MvcApplication
 	  Inherits System.Web.HttpApplication
 	  ...
@@ -475,7 +475,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Controller OnException method-VB_)
 
-	````VisualBasic
+	````VB.NET
 	<HandleError()>
 	Public Class QuoteController
 	  Inherits Controller
@@ -507,7 +507,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 	````
 
-	````VisualBasic
+	````VB.NET
 	Public Class QuoteController
 	  Inherits Controller
 	  ...
@@ -536,7 +536,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 	````
 
-	````VisualBasic
+	````VB.NET
 	Public Class QuoteController
 	  Inherits Controller
 	  ...
@@ -601,7 +601,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer namespaces-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Imports System.Configuration
 	Imports System.Data.Services.Client
 	Imports System.Threading
@@ -612,7 +612,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 1. For Visual Basic projects only, reformulate the **Sub Main** making it **Public** and adding a string array parameter named **args**.
 
-	````VisualBasic
+	````VB.NET
 	Module Module1
 	
 	  Public Sub Main(ByVal args() As String)
@@ -640,7 +640,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Module Module1
 	
 	  Private lastPartitionKey As String = String.Empty
@@ -682,7 +682,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-QueryLogTable method-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Module Module1
 	  ...
 	  Private Sub QueryLogTable(ByVal tableStorage As CloudTableClient)
@@ -732,7 +732,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer Main method-VB_)
 
-	````VisualBasic
+	````VB.NET
 	Module Module1
 	  ...
 	  Public Sub Main(ByVal args() As String)
