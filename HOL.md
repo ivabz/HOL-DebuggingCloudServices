@@ -1,4 +1,4 @@
-?#Debugging Applications in Windows Azure#
+#Debugging Applications in Windows Azure#
 
 ## Overview ##
 
