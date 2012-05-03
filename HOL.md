@@ -82,12 +82,11 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 	_Configuring the start action of the project_
 
 1. Press **F5** to build and run the solution. The application should launch in the Web Development Server and open its **Auto Insurance Quotes** page in your browser.
-
 1. To explore its operation, complete the form by choosing any combination of values from the **Vehicle Details** drop down lists and then click **Calculate** to obtain a quote for the insurance premium. Notice that after you submit the form, the page refreshes and shows the calculated amount.
 
- 	![Exploring the Fabrikam Insurance application](./images/Exploring-the-Fabrikam-Insurance-application.png?raw=true "Exploring the Fabrikam Insurance application")
+![Exploring the Fabrikam Insurance application](./images/Exploring-the-Fabrikam-Insurance-application.png?raw=true "Exploring the Fabrikam Insurance application")
   
-	_Exploring the Fabrikam Insurance application_
+_Exploring the Fabrikam Insurance application_
 
 1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
