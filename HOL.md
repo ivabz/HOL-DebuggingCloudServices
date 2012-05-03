@@ -327,30 +327,9 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 1. Similarly, add a tracing statement to the **About** action, as shown (highlighted) below.
 
-	````C#
-	public class QuoteController : Controller
-	{
-	  ...
-	  public ActionResult About()
-	  {
-	    System.Diagnostics.Trace.TraceInformation("About called...");
-	    return View();
-	  }
-	  ...
-	}
-	````
+ 	![E2-T3-13_CS(Highlighted)](./images/E2-T3-13_CS(Highlighted\).png?raw=true "E2-T3-13_CS(Highlighted)")
 
-	````VB.NET
-	Public Class QuoteController
-	  Inherits Controller
-	  ...
-	  Public Function About() As ActionResult
-	    System.Diagnostics.Trace.TraceInformation("About called...")
-	    Return View()
-	  End Function
-	  ...
-	End Class
- 	````
+ 	![E2-T3-13_VB(Highlighted)](./images/E2-T3-13_VB(Highlighted\).png?raw=true "E2-T3-13_VB(Highlighted)")
  
 #### Task 2 - Creating a Log Viewer Tool ####
 
@@ -430,32 +409,13 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-CS_)
 
-	````C#
-	class Program
-	{
-	  private static string lastPartitionKey = String.Empty;
-	  private static string lastRowKey = String.Empty;
-	
-	  static void Main(string[] args)
-	  {
-	  }
-	}
-````
+ 	![E2-T4-9_CS_Highlighted)](./images/E2-T4-9_CS(Highlighted\).png?raw=true "E2-T4-9_CS(Highlighted)")
+
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-VB_)
 
-	````VB.NET
-	Module Module1
-	
-	  Private lastPartitionKey As String = String.Empty
-	  Private lastRowKey As String = String.Empty
-	
-	  Public Sub Main(ByVal args() As String)
-	
-	  End Sub
-	
-	End Module
-	````
+ 	![E2-T4-9_VB(Highlighted)](./images/E2-T4-9_VB(Highlighted\).png?raw=true "E2-T4-9_VB(Highlighted)")
+
 
 1. Next, insert the **QueryLogTable** method into the class or module.
 
@@ -509,71 +469,19 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer Main method-CS)
 
-	````C#
-	class Program
-	{
-	  ...
-	  static void Main(string[] args)
-	  {
-	    string connectionString = (args.Length == 0) ? "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" : args[0];
-	
-	    CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.AppSettings[connectionString]);
-	    CloudTableClient tableStorage = account.CreateCloudTableClient();
-	    tableStorage.CreateTableIfNotExist(TableStorageTraceListener.DIAGNOSTICS_TABLE);
-	
-	    Utils.ProgressIndicator progress = new Utils.ProgressIndicator();
-	    Timer timer = new Timer((state) =>
-	    {
-	      progress.Disable();
-	      QueryLogTable(tableStorage);
-	      progress.Enable();
-	    }, null, 0, 10000);
-	
-	    Console.Readline();
-	  }
-	}
-````
+ 	![E2-T4-11_CS_Highlighted)](./images/E2-T4-11_CS(Highlighted\).png?raw=true "E2-T4-11_CS(Highlighted)")
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer Main method-VB_)
 
-	````VB.NET
-	Module Module1
-	  ...
-	  Public Sub Main(ByVal args() As String)
-	    Dim connectionString As String = If((args.Length = 0), "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString", args(0))
-	
-	    Dim account As CloudStorageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings(connectionString))
-	    Dim tableStorage As CloudTableClient = account.CreateCloudTableClient()
-	    tableStorage.CreateTableIfNotExist(TableStorageTraceListener.DIAGNOSTICS_TABLE)
-	
-	    Dim progress As New ProgressIndicator()
-	    Dim timer As New Timer(Sub(state)
-	                             progress.Disable()
-	                             QueryLogTable(tableStorage)
-	                             progress.Enable()
-	                           End Sub, Nothing, 0, 10000)
-	
-	    Console.ReadLine()
-	  End Sub
-	
-	End Module
-	````
+ 	![E2-T4-11_CS_Highlighted)](./images/E2-T4-11_CS(Highlighted\).png?raw=true "E2-T4-11_CS(Highlighted)")
+
 
 	>**Note:** The inserted code initializes the Windows Azure storage account information, creates the diagnostics table if necessary, and then starts a timer that periodically calls the **QueryLogMethod** defined in the previous step to display new entries in the diagnostics log.
 
 1. To complete the viewer application, open the **App.config** file in the **LogViewer** project and insert the following (highlighted) **appSettings** section to define the _DiagnosticsConnectionString_ setting required to initialize the storage account information.
 
-	````XML
-	<configuration>
-	  ...
-	  <appSettings>
-	    <add key="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true"/>
-	  </appSettings>
-	  <startup>
-	    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0" />
-	  </startup>
-	</configuration>
- 	````
+ 	![E2-T4-12_XML_Highlighted)](./images/E2-T4-12_XML(Highlighted\).png?raw=true "E2-T4-12_XML(Highlighted)")
+
  
 #### Verification ####
 
@@ -581,16 +489,7 @@ You are now ready to execute the solution in the compute emulator. To enable the
 
 1. Open the **Web.config** file of the **FabrikamInsurance** project and insert the following (highlighted) **customErrors** section as a direct child of the **system.web** element. 
 
-	````XML
-	<configuration>
-	  ...
-	  <system.web>
-	    ...
-	    <customErrors mode="On" />
-	  </system.web>
-	  ...
-	</configuration>
-	````
+ 	![E2-V-1_XML_Highlighted)](./images/E2-V-1_XML(Highlighted\).png?raw=true "E2-V-1_XML(Highlighted)")
 
 	>**Note:** When you set the **customErrors** mode to _On_, ASP.NET displays generic error messages for both local and remote clients. With **customErrors** set to its default setting of _RemoteOnly_, once the application is deployed to Windows Azure and you access it remotely, you will also see the generic errors, so this step is not strictly necessary. However, it allows you to reproduce locally the behavior that you would observe once you deploy the application to the cloud.
 
