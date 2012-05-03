@@ -187,11 +187,11 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	 (Code Snippet - WindowsAzureDebugging-Ex1-ConfigureTraceListener-CS)
 
- 	![E2-T3-4_CS(Highlighted)](./images/E2-T3-4_CS(Highlighted).png?raw=true "E2-T3-4_CS(Highlighted)")
+ 	![E2-T3-4_CS(Highlighted)](./images/E2-T3-4_CS(Highlighted\).png?raw=true "E2-T3-4_CS(Highlighted)")
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-ConfigureTraceListener-VB_)
 
- 	![E2-T3-4_VB(Highlighted)](./images/E2-T3-4_VB(Highlighted).png?raw=true "E2-T3-4_VB(Highlighted)")
+ 	![E2-T3-4_VB(Highlighted)](./images/E2-T3-4_VB(Highlighted\).png?raw=true "E2-T3-4_VB(Highlighted)")
 
 	>**Note:** The **ConfigureTraceListener** method retrieves the _EnableTableStorageTraceListener_ configuration setting and, if its value is _true_, it creates a new instance of the **TableStorageTraceListener** class, defined in the project that you added to the solution earlier, and then adds it to the collection of available trace listeners. Note that the method also enables the **AutoFlush** property of the **Trace** object to ensure that trace messages are written immediately to table storage, allowing you to retrieve them as they occur.
 
@@ -199,11 +199,11 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - WindowsAzureDebugging-Ex1- Application_Start-CS)
 
- 	![E2-T3-5_CS(Highlighted)](./images/E2-T3-5_CS(Highlighted).png?raw=true "E2-T3-5_CS(Highlighted)")
+ 	![E2-T3-5_CS(Highlighted)](./images/E2-T3-5_CS(Highlighted\).png?raw=true "E2-T3-5_CS(Highlighted)")
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Application_Start-VB_)
 
- 	![E2-T3-5_VB(Highlighted)](./images/E2-T3-5_VB(Highlighted).png?raw=true "E2-T3-5_VB(Highlighted)")
+ 	![E2-T3-5_VB(Highlighted)](./images/E2-T3-5_VB(Highlighted\).png?raw=true "E2-T3-5_VB(Highlighted)")
 
 	>**Note:** TraceListeners can be added by configuring them in the **system.diagnostics** section of the configuration file. However, in this case, the role creates the listener programmatically allowing you to enable the listener only when you need it and while the service is running.
 
@@ -221,11 +221,11 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-CS)
 
- 	![E2-T3-7_CS(Highlighted)](./images/E2-T3-7_CS(Highlighted).png?raw=true "E2-T3-7_CS(Highlighted)")
+ 	![E2-T3-7_CS(Highlighted)](./images/E2-T3-7_CS(Highlighted\).png?raw=true "E2-T3-7_CS(Highlighted)")
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-VB_)
 
- 	![E2-T3-7_VB(Highlighted)](./images/E2-T3-7_VB(Highlighted).png?raw=true "E2-T3-7_VB(Highlighted)")
+ 	![E2-T3-7_VB(Highlighted)](./images/E2-T3-7_VB(Highlighted\).png?raw=true "E2-T3-7_VB(Highlighted)")
 
 	>**Note:** The **RoleEnvironmentChanging** event occurs before a change to the service configuration is applied to the running instances of the role. The updated handler scans the collection of changes and restarts the role instance for any configuration setting change, unless the change only involves the value of the _EnableTableStorageTraceListener_ setting.  If this particular setting changes, the role instance is allowed to apply the change without restarting it.
 
@@ -233,19 +233,19 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-CS)
 
- 	![E2-T3-8_CS(Highlighted)](./images/E2-T3-8_CS(Highlighted).png?raw=true "E2-T3-8_CS(Highlighted)")
+ 	![E2-T3-8_CS(Highlighted)](./images/E2-T3-8_CS(Highlighted\).png?raw=true "E2-T3-8_CS(Highlighted)")
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-VB_)
 
- 	![E2-T3-8_VB(Highlighted)](./images/E2-T3-8_VB(Highlighted).png?raw=true "E2-T3-8_VB(Highlighted)")
+ 	![E2-T3-8_VB(Highlighted)](./images/E2-T3-8_VB(Highlighted\).png?raw=true "E2-T3-8_VB(Highlighted)")
 
 	>**Note:** The **RoleEnvironmentChanged** event handler occurs after a change to the service configuration has been applied to the running instances of the role. If this change involves the _EnableTableStorageTraceListener_ configuration setting, the handler calls the **ConfigureTraceListener** method to enable or disable the trace listener.
 
 1. Finally, insert the following (highlighted) line into the **Application_Start** method, immediately after to the call to the **ConfigureTraceListener** method, to subscribe to the **Changed** event of the **RoleEnvironment**.
 
- 	![E2-T3-9_CS(Highlighted)](./images/E2-T3-9_CS(Highlighted).png?raw=true "E2-T3-9_CS(Highlighted)")
+ 	![E2-T3-9_CS(Highlighted)](./images/E2-T3-9_CS(Highlighted\).png?raw=true "E2-T3-9_CS(Highlighted)")
 
- 	![E2-T3-9_VB(Highlighted)](./images/E2-T3-9_VB(Highlighted).png?raw=true "E2-T3-9_VB(Highlighted)")
+ 	![E2-T3-9_VB(Highlighted)](./images/E2-T3-9_VB(Highlighted\).png?raw=true "E2-T3-9_VB(Highlighted)")
 
 1. To instrument the application and write diagnostics information to the error log, add a global error handler to the application. To do this, insert the following method into the **MVCApplication** class.
 
@@ -321,9 +321,9 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 1. In addition to error logging, tracing can also be useful for recording other significant events during the execution of the application. For example, for registering whenever a given controller action is invoked. To show this feature, insert the following (highlighted) tracing statement at the start of the **Calculator** method to log a message whenever this action is called. 
 
- 	![E2-T3-12_CS(Highlighted)](./images/E2-T3-12_CS(Highlighted).png?raw=true "E2-T3-12_CS(Highlighted)")
+ 	![E2-T3-12_CS(Highlighted)](./images/E2-T3-12_CS(Highlighted\).png?raw=true "E2-T3-12_CS(Highlighted)")
 
- 	![E2-T3-12_VB(Highlighted)](./images/E2-T3-12_VB(Highlighted).png?raw=true "E2-T3-12_VB(Highlighted)")
+ 	![E2-T3-12_VB(Highlighted)](./images/E2-T3-12_VB(Highlighted\).png?raw=true "E2-T3-12_VB(Highlighted)")
 
 1. Similarly, add a tracing statement to the **About** action, as shown (highlighted) below.
 
