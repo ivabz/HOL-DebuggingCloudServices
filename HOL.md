@@ -1,5 +1,8 @@
-﻿#Debugging Applications in Windows Azure#
+﻿<a name="Title" />
+# Debugging Applications in Windows Azure #
 
+---
+<a name="Overview" />
 ## Overview ##
 
 Using Visual Studio, you can debug applications in your local machine by stepping through code, setting breakpoints, and examining the value of program variables. For Windows Azure applications, the compute emulator allows you to run the code locally and debug it using these same features and techniques, making this process relatively straightforward.
@@ -8,28 +11,38 @@ Ideally, you should take advantage of the compute emulator and use Visual Studio
 
 Once you deploy an application to the cloud, you are no longer able to attach a debugger and instead, need to rely on debugging information written to logs in order to diagnose and troubleshoot application failures. Windows Azure provides comprehensive diagnostic facilities that allow capturing information from different sources, including Windows Azure application logs, IIS logs, failed request traces, Windows event logs, custom error logs, and crash dumps. The availability of this diagnostic information relies on the Windows Azure Diagnostics Monitor to collect data from individual role instances and transfer this information to Windows Azure storage for aggregation. Once the information is in storage, you can retrieve it and analyze it.
 
+<a name="Objectives" />
 ### Objectives ###
 
 In this hands-on lab, you will:
 
 - Learn what features and techniques are available in Visual Studio and Windows Azure to debug applications once deployed to Windows Azure.
 
-- Use a simple TraceListener to log directly to table storage and a viewer to retrieve these logs.
+- Use a simple **TraceListener** to log directly to table storage and a viewer to retrieve these logs.
 
- 
+<a name="Prerequisites" />
 ### Prerequisites ###
 
 The following is required to complete this hands-on lab:
 
 - IIS 7 (with ASP.NET, WCF HTTP Activation)
 
-- [Microsoft .NET Framework 4.0](http://go.microsoft.com/fwlink/?linkid=186916)
+- [Microsoft .NET Framework 4.0][2]
 
-- [Microsoft Visual Studio 2010](http://msdn.microsoft.com/vstudio/products/)
+- [Microsoft Visual Studio 2010][1]
 
-- [Windows Azure Tools for Microsoft Visual Studio 1.6](http://www.microsoft.com/windowsazure/sdk/)
+- [Windows Azure Tools for Microsoft Visual Studio 1.7][3]
 
- 
+- [SQL Server 2012 Express Edition (or later)][4]
+
+[1]: http://msdn.microsoft.com/vstudio/products/
+[2]: http://go.microsoft.com/fwlink/?linkid=186916
+[3]: http://www.microsoft.com/windowsazure/sdk/
+[4]: http://www.microsoft.com/express/sql/download/
+
+>**Note:** This lab was designed to use Windows 7 Operating System
+
+<a name="Setup"/>
 ### Setup ###
 In order to execute the exercises in this hands-on lab you need to set up your environment.
 
@@ -38,33 +51,39 @@ In order to execute the exercises in this hands-on lab you need to set up your e
 1. Double-click the **Setup.cmd** file in this folder to launch the setup process that will configure your environment and install the Visual Studio code snippets for this lab.
 
 1. If the User Account Control dialog is shown, confirm the action to proceed.
-
  
 >**Note:** Make sure you have checked all the dependencies for this lab before running the setup.
 
+<a name="UsingCodeSnippets"/>
 ### Using the Code Snippets ###
 
 Throughout the lab document, you will be instructed to insert code blocks. For your convenience, most of that code is provided as Visual Studio Code Snippets, which you can use from within Visual Studio 2010 to avoid having to add it manually.
 
 If you are not familiar with the Visual Studio Code Snippets, and want to learn how to use them, you can refer to the **Setup.docx** document in the **Assets** folder of the training kit, which contains a section describing how to use them.
 
+>**Note:** Each exercise is accompanied by a starting solution located in the Begin folder of the exercise that allows you to follow each exercise independently of the others. Please be aware that the code snippets that are added during an exercise are missing from these starting solutions and that they will not necessarily work until you complete the exercise. Inside the source code for an exercise, you will also find an End folder containing a Visual Studio solution with the code that results from completing the steps in the corresponding exercise. You can use these solutions as guidance if you need additional help as you work through this hands-on lab.
+
+---
+<a name="Exercises"/>
 ## Exercises ##
 
 This hands-on lab includes the following exercise:
 
-1. Learn What Features and Techniques are Available in Visual Studio and Windows Azure.
+- [Learn What Features and Techniques are Available in Visual Studio and Windows Azure](#Exercise1)
 
-1. Adding diagnostic trace.
+- [Adding Diagnostic Trace](#Exercise2)
 
  
 Estimated time to complete this lab: **40 minutes**.
 
 >**Note:** When you first start Visual Studio, you must select one of the predefined settings collections. Every predefined collection is designed to match a particular development style and determines window layouts, editor behavior, IntelliSense code snippets, and dialog box options. The procedures in this lab describe the actions necessary to accomplish a given task in Visual Studio when using the **General Development Settings** collection. If you choose a different settings collection for your development environment, there may be differences in these procedures that you need to take into account.
 
+<a name="Exercise1" />
 ### Exercise 1: Learn What Features and Techniques are Available in Visual Studio and Windows Azure ###
 
 Because Windows Azure Diagnostics is oriented towards operational monitoring and has to cater for gathering information from multiple role instances, it requires that diagnostic data first be transferred from local storage in each role to Windows Azure storage, where it is aggregated. This requires programming scheduled transfers with the diagnostic monitor to copy logging data to Windows Azure storage at regular intervals, or else requesting a transfer of the logs on-demand. Moreover, information obtained in this manner provides a snapshot of the diagnostics data available at the time of the transfer. To retrieve updated data, a new transfer is necessary. When debugging a single role, and especially during the development phase, these actions add unnecessary friction to the process. To simplify the retrieval of diagnostics data from a deployed role, it is simpler to read information directly from Windows Azure storage, without requiring additional steps.
 
+<a name="Ex1Task1" />
 #### Task 1 - Exploring the Fabrikam Insurance Application ####
 
 In this task, you build and run the Fabrikam Insurance application in the Web Development Server to become familiar with its operation.
@@ -90,7 +109,7 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 
 1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
- 
+<a name="Ex1Task2" />
 #### Task 2 - Running the Application as a Windows Azure Project ####
 
 In this task, you create a new Windows Azure Project to prepare the application for deployment to Windows Azure.
@@ -150,13 +169,14 @@ In this task, you create a new Windows Azure Project to prepare the application 
 
   1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
- 
+<a name="Exercise2" />
 ### Exercise 2: Adding diagnostic trace ###
 
 In this exercise, you debug a simple application by configuring a special trace listener that can write its output directly into a table in Windows Azure storage emulator.  To produce diagnostic data, you instrument the application to write its trace information using standard methods in the System.Diagnostics namespace. Finally, you create a simple log viewer application that can retrieve and display the contents of the diagnostics table.
 
 The application that you will use for this exercise simulates an online auto insurance policy calculator. It has a single form where users can enter details about their vehicle and then submit the form to obtain an estimate on their insurance premium. Behind the scenes, the controller action that processes the form uses a separate assembly to calculate premiums based on the input from the user. The assembly contains a bug that causes it to raise an exception for input values that fall outside the expected range.
 
+<a name="Ex2Task1" />
 #### Task 1 - Adding Tracing Support to the Application ####
 
 In the previous exercise, you briefly saw how to debug your application with Visual Studio when it executes locally in the compute emulator. To debug the application once you deploy it to the cloud, you need to write debugging information to the logs in order to diagnose an application failure.
@@ -172,25 +192,72 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	````C#
 	using Microsoft.WindowsAzure;
 	using Microsoft.WindowsAzure.ServiceRuntime;
-````
+	````
+
 1. Add the following (highlighted) method inside the **MvcApplication** class.
 
-	 (Code Snippet - WindowsAzureDebugging-Ex1-ConfigureTraceListener-CS)
- 	![E2-T3-4_CS(Highlighted)](./images/E2-T3-4_CS(Highlighted\).png?raw=true "E2-T3-4_CS(Highlighted)
+	(Code Snippet - WindowsAzureDebugging-Ex1-ConfigureTraceListener-CS)
+	<!-- mark:4-25 -->
+	````C#
+	public class MvcApplication : System.Web.HttpApplication
+	{
+		...
+        private static void ConfigureTraceListener()
+        {
+            bool enableTraceListener = false;
+            string enableTraceListenerSetting = RoleEnvironment.GetConfigurationSettingValue("EnableTableStorageTraceListener");
+            if (bool.TryParse(enableTraceListenerSetting, out enableTraceListener))
+            {
+                if (enableTraceListener)
+                {
+                    AzureDiagnostics.TableStorageTraceListener listener =
+                        new AzureDiagnostics.TableStorageTraceListener("Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString")
+                        {
+                            Name = "TableStorageTraceListener"
+                        };
+                    System.Diagnostics.Trace.Listeners.Add(listener);
+                    System.Diagnostics.Trace.AutoFlush = true;
+                }
+                else
+                {
+                    System.Diagnostics.Trace.Listeners.Remove("TableStorageTraceListener");
+                }
+            }
+        }
+	}
+	````
+	
 
 	>**Note:** The **ConfigureTraceListener** method retrieves the _EnableTableStorageTraceListener_ configuration setting and, if its value is _true_, it creates a new instance of the **TableStorageTraceListener** class, defined in the project that you added to the solution earlier, and then adds it to the collection of available trace listeners. Note that the method also enables the **AutoFlush** property of the **Trace** object to ensure that trace messages are written immediately to table storage, allowing you to retrieve them as they occur.
 
 1. Now, insert the following (highlighted) code in the **Application_Start** method to set up the Windows Azure storage configuration settings publisher and to enable the **TableStorageTraceListener**. 
 
 	(Code Snippet - WindowsAzureDebugging-Ex1- Application_Start-CS)
- 	![E2-T3-5_CS(Highlighted)](./images/E2-T3-5_CS(Highlighted\).png?raw=true "E2-T3-5_CS(Highlighted)
+	<!-- mark:6-11 -->
+	````C#
+	public class MvcApplication : System.Web.HttpApplication
+	{
+		...
+		protected void Application_Start()
+		{
+			CloudStorageAccount.SetConfigurationSettingPublisher((configName, configSetter) =>
+			{
+				 configSetter(RoleEnvironment.GetConfigurationSettingValue(configName));
+			});
+
+			ConfigureTraceListener();			
+
+			AreaRegistration.RegisterAllAreas();
+
+			RegisterRoutes(RouteTable.Routes);
+		}		
+		...
+	````
 
 	>**Note:** TraceListeners can be added by configuring them in the **system.diagnostics** section of the configuration file. However, in this case, the role creates the listener programmatically allowing you to enable the listener only when you need it and while the service is running.
 
- 	![Enabling the TableStorageTraceListener in the configuration file](./images/Enabling-the-TableStorageTraceListener-in-the-configuration-file.png?raw=true "Enabling the TableStorageTraceListener in the configuration file")
+ 	>![Enabling the TableStorageTraceListener in the configuration file](./images/Enabling-the-TableStorageTraceListener-in-the-configuration-file.png?raw=true "Enabling the TableStorageTraceListener in the configuration file")
  
-	_Enabling the TableStorageTraceListener in the configuration file_
-
 1. Next, define a configuration setting to control the diagnostics logging with the **TableStorageTraceListener**. To create the setting, expand the Roles node in the **FabrikamInsuranceService** project and then double-click the **FabrikamInsurance** role. In the role properties window, switch to the **Settings** page, click **Add Setting**, and then set the name of the new setting to _EnableTableStorageTraceListener_, the type as _String_, and the value as _false_.
 
  	![Creating a configuration setting to enable the trace listener](./images/Creating-a-configuration-setting-to-enable-the-trace-listener.png?raw=true "Creating a configuration setting to enable the trace listener")
@@ -199,24 +266,80 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 1. Locate the **RoleEnvironmentChanging** event handler inside the **WebRole** class and replace its body with the following (highlighted) code.
 
-	(Code Snippet - WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-CS)	![E2-T3-7_CS(Highlighted)](./images/E2-T3-7_CS(Highlighted\).png?raw=true "E2-T3-7_CS(Highlighted)
+	(Code Snippet - WindowsAzureDebugging-Ex1-WebRole RoleEnvironmentChanging event handler-CS)	
+	<!-- mark:6-11 -->
+	````C#
+	public class WebRole : RoleEntryPoint
+	{
+		...
+		private void RoleEnvironmentChanging(object sender, RoleEnvironmentChangingEventArgs e)
+		{
+			// for any configuration setting change except EnableTableStorageTraceListener
+			if (e.Changes.OfType<RoleEnvironmentConfigurationSettingChange>().Any(change => change.ConfigurationSettingName != "EnableTableStorageTraceListener"))
+			{
+				 // Set e.Cancel to true to restart this role instance
+				 e.Cancel = true;
+			}
+		}
+		...
+	}
+	````
+
 
 	>**Note:** The **RoleEnvironmentChanging** event occurs before a change to the service configuration is applied to the running instances of the role. The updated handler scans the collection of changes and restarts the role instance for any configuration setting change, unless the change only involves the value of the _EnableTableStorageTraceListener_ setting.  If this particular setting changes, the role instance is allowed to apply the change without restarting it.
 
 1. Now, add the following (highlighted) code to define a handler for the **RoleEnvironmentChanged** event into the **Global.asax.cs**.
 
-	(Code Snippet - WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-CS)	![E2-T3-8_CS(Highlighted)](./images/E2-T3-8_CS(Highlighted\).png?raw=true "E2-T3-8_CS(Highlighted)
+	(Code Snippet - WindowsAzureDebugging-Ex1-Global RoleEnvironmentChanged event handler-CS)
+	<!-- mark:4-11 -->
+	````C#
+	public class MvcApplication : System.Web.HttpApplication
+	{
+		...
+		private void RoleEnvironmentChanged(object sender, RoleEnvironmentChangedEventArgs e)
+		{
+			// configure trace listener for any changes to EnableTableStorageTraceListener 
+			if (e.Changes.OfType<RoleEnvironmentConfigurationSettingChange>().Any(change => change.ConfigurationSettingName == "EnableTableStorageTraceListener"))
+			{
+				 ConfigureTraceListener();
+			}
+		}
+		...
+	}
+	````
+
 
 	>**Note:** The **RoleEnvironmentChanged** event handler occurs after a change to the service configuration has been applied to the running instances of the role. If this change involves the _EnableTableStorageTraceListener_ configuration setting, the handler calls the **ConfigureTraceListener** method to enable or disable the trace listener.
 
 1. Finally, insert the following (highlighted) line into the **Application_Start** method, immediately after to the call to the **ConfigureTraceListener** method, to subscribe to the **Changed** event of the **RoleEnvironment**.
 
- 	![E2-T3-9_CS(Highlighted)](./images/E2-T3-9_CS(Highlighted\).png?raw=true "E2-T3-9_CS(Highlighted)
+	<!-- mark:13 -->
+	````C#
+	public class MvcApplication : System.Web.HttpApplication
+	{
+		...
+		protected void Application_Start()
+		{
+			CloudStorageAccount.SetConfigurationSettingPublisher((configName, configSetter) =>
+			{
+				 configSetter(RoleEnvironment.GetConfigurationSettingValue(configName));
+			});
+
+			ConfigureTraceListener();			
+
+			RoleEnvironment.Changed += RoleEnvironmentChanged;
+
+			AreaRegistration.RegisterAllAreas();
+
+			RegisterRoutes(RouteTable.Routes);
+		}		
+		...
+	````
 
 1. To instrument the application and write diagnostics information to the error log, add a global error handler to the application. To do this, insert the following method into the **MVCApplication** class.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-Application_Error-CS)
-
+	<!-- mark:4-8 -->
 	````C#
 	public class MvcApplication : System.Web.HttpApplication
 	{
@@ -242,7 +365,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 1. Open the **QuoteController.cs** file in the **Controllers** folder of the **FabrikamInsurance** project and add the following method. 
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-Controller OnException method-CS)
-
+	<!-- mark:5-8 -->
 	````C#
 	[HandleError]
 	public class QuoteController : Controller
@@ -253,20 +376,47 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	    System.Diagnostics.Trace.TraceError(filterContext.Exception.Message);
 	  }
 	}
-````
+	````
 
 	> **Note:** The **OnException** method is called when an unhandled exception occurs during the processing of an action in a controller. For MVC applications, unhandled errors are typically caught at the controller level, provided they occur during the execution of a controller action and that the action (or controller) has been decorated with a **HandleErrorAttribute**. To log exceptions in controller actions, you need to override the **OnException** method of the controller because the **Application_Error** is bypassed when the error-handling filter catches the exceptions. 
 
 	> By default, when an action method with the **HandleErrorAttribute** attribute throws any exception, MVC displays the **Error** view that is located in the **~/Views/Shared** folder.
 
 1. In addition to error logging, tracing can also be useful for recording other significant events during the execution of the application. For example, for registering whenever a given controller action is invoked. To show this feature, insert the following (highlighted) tracing statement at the start of the **Calculator** method to log a message whenever this action is called. 
-
-	![E2-T3-12_CS(Highlighted)](./images/E2-T3-12_CS(Highlighted\).png?raw=true "E2-T3-12_CS(Highlighted)")
+	
+	<!-- mark:6 -->
+	````C#
+	public class QuoteController : Controller
+	{
+		...
+		public ActionResult Calculator()
+		{
+			System.Diagnostics.Trace.TraceInformation("Calculator called...");
+			QuoteViewModel model = new QuoteViewModel();
+			PopulateViewModel(model, null);
+			return View(model);
+		}
+		...
+	}
+	````
 
 1. Similarly, add a tracing statement to the **About** action, as shown (highlighted) below.
+	
+<!-- mark:6 -->
+	````C#
+	public class QuoteController : Controller
+	{
+		...
+		public ActionResult About()
+		{
+			System.Diagnostics.Trace.TraceInformation("About called...");
+			return View();
+		}
+		...
+	}
+	````
 
- 	![E2-T3-13_CS(Highlighted)](./images/E2-T3-13_CS(Highlighted\).png?raw=true "E2-T3-13_CS(Highlighted)")
- 
+<a name="Ex2Task2" />
 #### Task 2 - Creating a Log Viewer Tool ####
 
 At this point, the application is ready for tracing and can send all its diagnostics output to a table in storage services. To view the trace logs, you now create a simple log viewer application that will periodically query the table and retrieve all entries added since it was last queried.
@@ -298,7 +448,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 1. In **Solution Explorer**, double-click **Program.cs** to open this file and insert the following namespace declarations at the top of the file.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer namespaces-CS)
-
+	<!-- mark:1-6 -->
 	````C#
 	using System.Configuration;
 	using System.Data.Services.Client;
@@ -306,18 +456,28 @@ At this point, the application is ready for tracing and can send all its diagnos
 	using Microsoft.WindowsAzure;
 	using Microsoft.WindowsAzure.StorageClient;
 	using AzureDiagnostics;
-````
+	````
 
 1. Define the following (highlighted) members in the **Program** class.
 
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-CS_)
+	<!-- mark:3-4 -->
+	````C#
+	class Program
+	{
+		private statis string lastPartitionKey = String.Empty;
+		private statis string lastRowKey = String.Empty;
 
- 	![E2-T4-9_CS_Highlighted)](./images/E2-T4-9_CS(Highlighted\).png?raw=true "E2-T4-9_CS(Highlighted)
+		static void Main(string[] args)
+		{
+		}
+	}
+	````
 
 1. Next, insert the **QueryLogTable** method into the class.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-QueryLogTable method-CS)
-
+	<!-- mark:4-18 -->
 	````C#
 	class Program
 	{
@@ -346,23 +506,66 @@ At this point, the application is ready for tracing and can send all its diagnos
 1. Finally, to complete the changes, insert the following (highlighted) code into the body of method **Main**.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer Main method-CS)
+	<!-- mark:6-20 -->
+	````C#
+	class Program
+	{
+		...
+		static void Main(string[] args)
+		{
+			string connectionString = (args.Length == 0) ? "Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" : args[0];
 
- 	![E2-T4-11_CS_Highlighted)](./images/E2-T4-11_CS(Highlighted\).png?raw=true "E2-T4-11_CS(Highlighted)")
+			CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.AppSettings[connectionString]);
+			CloudTableClient tableStorage = account.CreateCloudTableClient();
+			tableStorage.CreateTableIfNotExist(TableStorageTraceListener.DIAGNOSTICS_TABLE);
+
+			Utils.ProgressIndicator progress = new Utils.ProgressIndicator();
+			Timer timer = new Timer((state) =>
+			{
+				 progress.Disable();
+				 QueryLogTable(tableStorage);
+				 progress.Enable();
+			}, null, 0, 10000);
+			
+			Console.ReadLine();
+		}
+	````
+	
 
 	>**Note:** The inserted code initializes the Windows Azure storage account information, creates the diagnostics table if necessary, and then starts a timer that periodically calls the **QueryLogMethod** defined in the previous step to display new entries in the diagnostics log.
 
 1. To complete the viewer application, open the **App.config** file in the **LogViewer** project and insert the following (highlighted) **appSettings** section to define the _DiagnosticsConnectionString_ setting required to initialize the storage account information.
 
- 	![E2-T4-12_XML_Highlighted)](./images/E2-T4-12_XML(Highlighted\).png?raw=true "E2-T4-12_XML(Highlighted)")
+	<!-- mark:3-5 -->
+	````XML
+	<configuration>
+		...
+		<appSettings>
+			<add key="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true"/>
+		</appSettings>
+		<startup>
+		...
+	````
 
- 
+<a name="Ex2Verification" />
 #### Verification ####
 
 You are now ready to execute the solution in the compute emulator. To enable the Table Storage trace listener dynamically without stopping the running service, you initially deploy the service with the _EnableTraceStorageTraceListener_ setting disabled and then, you change the setting in the configuration file to enable the listener and then upload it to re-configure the running service. Using the log viewer application, you examine the trace messages produced by the application.
 
 1. Open the **Web.config** file of the **FabrikamInsurance** project and insert the following (highlighted) **customErrors** section as a direct child of the **system.web** element. 
 
- 	![E2-V-1_XML_Highlighted)](./images/E2-V-1_XML(Highlighted\).png?raw=true "E2-V-1_XML(Highlighted)")
+	<!-- mark:5 -->
+	````XML
+	<configuration>
+		...
+		<system.web>
+			...
+			<customErrors mode="On" />
+		</system.web>
+		...
+	<configuration>
+	````
+
 
 	>**Note:** When you set the **customErrors** mode to _On_, ASP.NET displays generic error messages for both local and remote clients. With **customErrors** set to its default setting of _RemoteOnly_, once the application is deployed to Windows Azure and you access it remotely, you will also see the generic errors, so this step is not strictly necessary. However, it allows you to reproduce locally the behavior that you would observe once you deploy the application to the cloud.
 
@@ -426,7 +629,7 @@ You are now ready to execute the solution in the compute emulator. To enable the
 
 1. Finally, delete the running deployment in the compute emulator. To do this, right-click the deployment in the **Service Deployments** tree view and select **Remove**.
 
- 
+<a name="Summary" />
 ## Summary ##
 
 By completing this hands-on lab, you learnt how to apply simple debugging techniques to troubleshoot your Windows Azure application once you deploy it to the cloud. You saw how to use standard .NET diagnostics to write diagnostics output directly into table storage with a custom trace listener.
