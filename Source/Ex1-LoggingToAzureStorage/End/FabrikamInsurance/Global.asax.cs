@@ -25,8 +25,8 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 
 namespace FabrikamInsurance
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+    //// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    //// visit http://go.microsoft.com/?LinkId=9394801
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -37,9 +37,7 @@ namespace FabrikamInsurance
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Quote", action = "Calculator", id = UrlParameter.Optional } // Parameter defaults
-            );
-
+                new { controller = "Quote", action = "Calculator", id = UrlParameter.Optional } /* Parameter defaults */);
         }
 
         protected void Application_Start()
@@ -51,7 +49,7 @@ namespace FabrikamInsurance
 
             ConfigureTraceListener();
 
-            RoleEnvironment.Changed += RoleEnvironmentChanged;
+            RoleEnvironment.Changed += this.RoleEnvironmentChanged;
 
             AreaRegistration.RegisterAllAreas();
 

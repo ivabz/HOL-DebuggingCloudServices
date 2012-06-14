@@ -41,20 +41,20 @@ namespace FabrikamInsurance.Controllers
 
         public ActionResult About()
         {
-            return View();
+            return this.View();
         }
 
         public ActionResult Calculator()
         {
             QuoteViewModel model = new QuoteViewModel();
-            PopulateViewModel(model, null);
-            return View(model);
+            this.PopulateViewModel(model, null);
+            return this.View(model);
         }
 
         [HttpPost]
         public ActionResult Calculator(QuoteViewModel model)
-        {            
-            PopulateViewModel(model, model.MakeId);
+        {
+            this.PopulateViewModel(model, model.MakeId);
 
             if (ModelState.IsValid)
             {
@@ -68,7 +68,13 @@ namespace FabrikamInsurance.Controllers
                 model.YearlyPremium = premium;
             }
 
-            return View(model);
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public ActionResult GetModels(string id)
+        {
+            return this.Json(this.repository.GetModels(id));
         }
 
         private void PopulateViewModel(QuoteViewModel model, string makeId)
@@ -79,13 +85,7 @@ namespace FabrikamInsurance.Controllers
             model.BrakeTypes = this.repository.GetBrakeTypes();
             model.SafetyEquipment = this.repository.GetSafetyEquipment();
             model.AntiTheftDevices = this.repository.GetAntiTheftDevices();
-            model.YearList = Enumerable.Range(DateTime.Today.Year - AutoInsurance.MAXIMUM_VEHICLE_AGE + 1, AutoInsurance.MAXIMUM_VEHICLE_AGE);            
-        }
-
-        [HttpPost]
-        public ActionResult GetModels(string id)
-        {            
-            return Json(this.repository.GetModels(id));
+            model.YearList = Enumerable.Range(DateTime.Today.Year - AutoInsurance.MaximumVehicleAge + 1, AutoInsurance.MaximumVehicleAge);
         }
     }
 }
