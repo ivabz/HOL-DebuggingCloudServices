@@ -29,12 +29,16 @@ namespace Utils
         {
             Console.CursorVisible = false;
 
-            this.timer = new Timer((state) =>
-            {
-                Console.Write("\r ");
-                Console.Write(progressIndicator[progressState]);
-                progressState = (progressState + 1) % progressIndicator.Length;
-            }, null, Timeout.Infinite, 2000);
+            this.timer = new Timer(
+                (state) =>
+                {
+                    Console.Write("\r ");
+                    Console.Write(progressIndicator[progressState]);
+                    progressState = (progressState + 1) % progressIndicator.Length;
+                },
+                null,
+                Timeout.Infinite,
+                2000);
         }
 
         public void Enable()

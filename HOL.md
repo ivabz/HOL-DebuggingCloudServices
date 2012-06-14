@@ -327,7 +327,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 			ConfigureTraceListener();			
 
-			RoleEnvironment.Changed += RoleEnvironmentChanged;
+			RoleEnvironment.Changed += this.RoleEnvironmentChanged;
 
 			AreaRegistration.RegisterAllAreas();
 
@@ -393,8 +393,8 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 		{
 			System.Diagnostics.Trace.TraceInformation("Calculator called...");
 			QuoteViewModel model = new QuoteViewModel();
-			PopulateViewModel(model, null);
-			return View(model);
+			this.PopulateViewModel(model, null);
+			return this.View(model);
 		}
 		...
 	}
@@ -402,7 +402,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 
 1. Similarly, add a tracing statement to the **About** action, as shown (highlighted) below.
 	
-<!-- mark:6 -->
+	<!-- mark:6 -->
 	````C#
 	public class QuoteController : Controller
 	{
@@ -410,7 +410,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 		public ActionResult About()
 		{
 			System.Diagnostics.Trace.TraceInformation("About called...");
-			return View();
+			return this.View();
 		}
 		...
 	}
@@ -445,17 +445,19 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 1. Add a class to display a simple progress indicator in the console window to the project. To do this, in **Solution Explorer**, right-click **LogViewer**, point to **Add**, and select**Existing Item**. In the **Add Existing Item** dialog, browse to **Assets** in the **Source** folder of the lab, select **Visual C#** folder, select the **ProgressIndicator.cs** file, and then click **Add**.
 
-1. In **Solution Explorer**, double-click **Program.cs** to open this file and insert the following namespace declarations at the top of the file.
+1. In **Solution Explorer**, double-click **Program.cs** to open this file and replace its namespace declarations with the following ones.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer namespaces-CS)
-	<!-- mark:1-6 -->
+	<!-- mark:1-8 -->
 	````C#
-	using System.Configuration;
-	using System.Data.Services.Client;
-	using System.Threading;
-	using Microsoft.WindowsAzure;
-	using Microsoft.WindowsAzure.StorageClient;
-	using AzureDiagnostics;
+    using System;
+    using System.Configuration;
+    using System.Data.Services.Client;
+    using System.Linq;
+    using System.Threading;
+    using AzureDiagnostics;
+    using Microsoft.WindowsAzure;
+    using Microsoft.WindowsAzure.StorageClient;
 	````
 
 1. Define the following (highlighted) members in the **Program** class.
@@ -463,10 +465,10 @@ At this point, the application is ready for tracing and can send all its diagnos
 	(Code Snippet - _WindowsAzureDebugging-Ex1-LogViewer static members-CS_)
 	<!-- mark:3-4 -->
 	````C#
-	class Program
+	public class Program
 	{
-		private statis string lastPartitionKey = String.Empty;
-		private statis string lastRowKey = String.Empty;
+		private statis string lastPartitionKey = string.Empty;
+		private statis string lastRowKey = string.Empty;
 
 		static void Main(string[] args)
 		{
@@ -485,7 +487,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 	  private static void QueryLogTable(CloudTableClient tableStorage)
 	  {
 	    TableServiceContext context = tableStorage.GetDataServiceContext();
-	    DataServiceQuery query = context.CreateQuery<LogEntry>(TableStorageTraceListener.DIAGNOSTICS_TABLE)
+	    DataServiceQuery query = context.CreateQuery<LogEntry>(TableStorageTraceListener.DagnosticsTable)
 	                                    .Where(entry => entry.PartitionKey.CompareTo(lastPartitionKey) > 0
 	                                        || (entry.PartitionKey == lastPartitionKey && entry.RowKey.CompareTo(lastRowKey) > 0))
 	                                        as DataServiceQuery;
@@ -506,7 +508,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 1. Finally, to complete the changes, insert the following (highlighted) code into the body of method **Main**.
 
 	(Code Snippet - WindowsAzureDebugging-Ex1-LogViewer Main method-CS)
-	<!-- mark:6-20 -->
+	<!-- mark:6-24 -->
 	````C#
 	class Program
 	{
@@ -517,15 +519,19 @@ At this point, the application is ready for tracing and can send all its diagnos
 
 			CloudStorageAccount account = CloudStorageAccount.Parse(ConfigurationManager.AppSettings[connectionString]);
 			CloudTableClient tableStorage = account.CreateCloudTableClient();
-			tableStorage.CreateTableIfNotExist(TableStorageTraceListener.DIAGNOSTICS_TABLE);
+			tableStorage.CreateTableIfNotExist(TableStorageTraceListener.DagnosticsTable);
 
 			Utils.ProgressIndicator progress = new Utils.ProgressIndicator();
-			Timer timer = new Timer((state) =>
-			{
-				 progress.Disable();
-				 QueryLogTable(tableStorage);
-				 progress.Enable();
-			}, null, 0, 10000);
+			Timer timer = new Timer(
+				(state) =>
+				{
+					progress.Disable();
+					QueryLogTable(tableStorage);
+					progress.Enable();
+				},
+				null,
+				0,
+				10000);
 			
 			Console.ReadLine();
 		}

@@ -28,15 +28,23 @@ namespace FabrikamInsurance.Models
     {
         // render support
         public IEnumerable<KeyValuePair<string, string>> Makes { get; set; }
+
         public IEnumerable<KeyValuePair<string, string>> Models { get; set; }
+
         public IEnumerable<Factor> BodyStyles { get; set; }
+
         public IEnumerable<Factor> BrakeTypes { get; set; }
+
         public IEnumerable<Factor> SafetyEquipment { get; set; }
+
         public IEnumerable<Factor> AntiTheftDevices { get; set; }
+
         public IEnumerable<int> YearList { get; set; }
 
         public string Message { get; set; }
+
         public decimal MonthlyPremium { get; set; }
+
         public decimal YearlyPremium { get; set; }
 
         // view model data

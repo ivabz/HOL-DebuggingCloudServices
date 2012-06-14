@@ -51,22 +51,22 @@ namespace FabrikamInsurance.Models
 
         public IEnumerable<Factor> GetBodyStyles()
         {
-            return GetOptionList("bodystyles");
+            return this.GetOptionList("bodystyles");
         }
 
         public IEnumerable<Factor> GetBrakeTypes()
         {
-            return GetOptionList("braketypes");
+            return this.GetOptionList("braketypes");
         }
 
         public IEnumerable<Factor> GetSafetyEquipment()
         {
-            return GetOptionList("safetyequipment");
+            return this.GetOptionList("safetyequipment");
         }
 
         public IEnumerable<Factor> GetAntiTheftDevices()
-        {            
-            return GetOptionList("antitheftdevices");
+        {
+            return this.GetOptionList("antitheftdevices");
         }
         
         public decimal GetBookValue(string makeId, string modelId)
