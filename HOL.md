@@ -1,8 +1,7 @@
-﻿<a name="Title" />
+<a name="Title"></a>
 # Debugging Applications in Windows Azure #
-
 ---
-<a name="Overview" />
+<a name="Overview"></a>
 ## Overview ##
 
 Using Visual Studio, you can debug applications in your local machine by stepping through code, setting breakpoints, and examining the value of program variables. For Windows Azure applications, the compute emulator allows you to run the code locally and debug it using these same features and techniques, making this process relatively straightforward.
@@ -11,7 +10,7 @@ Ideally, you should take advantage of the compute emulator and use Visual Studio
 
 Once you deploy an application to the cloud, you are no longer able to attach a debugger and instead, need to rely on debugging information written to logs in order to diagnose and troubleshoot application failures. Windows Azure provides comprehensive diagnostic facilities that allow capturing information from different sources, including Windows Azure application logs, IIS logs, failed request traces, Windows event logs, custom error logs, and crash dumps. The availability of this diagnostic information relies on the Windows Azure Diagnostics Monitor to collect data from individual role instances and transfer this information to Windows Azure storage for aggregation. Once the information is in storage, you can retrieve it and analyze it.
 
-<a name="Objectives" />
+<a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will:
@@ -20,7 +19,7 @@ In this hands-on lab, you will:
 
 - Use a simple **TraceListener** to log directly to table storage and a viewer to retrieve these logs.
 
-<a name="Prerequisites" />
+<a name="Prerequisites"></a>
 ### Prerequisites ###
 
 The following is required to complete this hands-on lab:
@@ -78,12 +77,12 @@ Estimated time to complete this lab: **40 minutes**.
 
 >**Note:** When you first start Visual Studio, you must select one of the predefined settings collections. Every predefined collection is designed to match a particular development style and determines window layouts, editor behavior, IntelliSense code snippets, and dialog box options. The procedures in this lab describe the actions necessary to accomplish a given task in Visual Studio when using the **General Development Settings** collection. If you choose a different settings collection for your development environment, there may be differences in these procedures that you need to take into account.
 
-<a name="Exercise1" />
+<a name="Exercise1"></a>
 ### Exercise 1: Learn What Features and Techniques are Available in Visual Studio and Windows Azure ###
 
 Because Windows Azure Diagnostics is oriented towards operational monitoring and has to cater for gathering information from multiple role instances, it requires that diagnostic data first be transferred from local storage in each role to Windows Azure storage, where it is aggregated. This requires programming scheduled transfers with the diagnostic monitor to copy logging data to Windows Azure storage at regular intervals, or else requesting a transfer of the logs on-demand. Moreover, information obtained in this manner provides a snapshot of the diagnostics data available at the time of the transfer. To retrieve updated data, a new transfer is necessary. When debugging a single role, and especially during the development phase, these actions add unnecessary friction to the process. To simplify the retrieval of diagnostics data from a deployed role, it is simpler to read information directly from Windows Azure storage, without requiring additional steps.
 
-<a name="Ex1Task1" />
+<a name="Ex1Task1"></a>
 #### Task 1 - Exploring the Fabrikam Insurance Application ####
 
 In this task, you build and run the Fabrikam Insurance application in the Web Development Server to become familiar with its operation.
@@ -109,7 +108,7 @@ In this task, you build and run the Fabrikam Insurance application in the Web De
 
 1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
-<a name="Ex1Task2" />
+<a name="Ex1Task2"></a>
 #### Task 2 - Running the Application as a Windows Azure Project ####
 
 In this task, you create a new Windows Azure Project to prepare the application for deployment to Windows Azure.
@@ -169,14 +168,14 @@ In this task, you create a new Windows Azure Project to prepare the application 
 
   1. Press **SHIFT + F5** to stop debugging and shut down the application.
 
-<a name="Exercise2" />
+<a name="Exercise2"></a>
 ### Exercise 2: Adding diagnostic trace ###
 
 In this exercise, you debug a simple application by configuring a special trace listener that can write its output directly into a table in Windows Azure storage emulator.  To produce diagnostic data, you instrument the application to write its trace information using standard methods in the System.Diagnostics namespace. Finally, you create a simple log viewer application that can retrieve and display the contents of the diagnostics table.
 
 The application that you will use for this exercise simulates an online auto insurance policy calculator. It has a single form where users can enter details about their vehicle and then submit the form to obtain an estimate on their insurance premium. Behind the scenes, the controller action that processes the form uses a separate assembly to calculate premiums based on the input from the user. The assembly contains a bug that causes it to raise an exception for input values that fall outside the expected range.
 
-<a name="Ex2Task1" />
+<a name="Ex2Task1"></a>
 #### Task 1 - Adding Tracing Support to the Application ####
 
 In the previous exercise, you briefly saw how to debug your application with Visual Studio when it executes locally in the compute emulator. To debug the application once you deploy it to the cloud, you need to write debugging information to the logs in order to diagnose an application failure.
@@ -416,7 +415,7 @@ In this task, you add a TraceListener to the project capable of logging diagnost
 	}
 	````
 
-<a name="Ex2Task2" />
+<a name="Ex2Task2"></a>
 #### Task 2 - Creating a Log Viewer Tool ####
 
 At this point, the application is ready for tracing and can send all its diagnostics output to a table in storage services. To view the trace logs, you now create a simple log viewer application that will periodically query the table and retrieve all entries added since it was last queried.
@@ -553,7 +552,7 @@ At this point, the application is ready for tracing and can send all its diagnos
 		...
 	````
 
-<a name="Ex2Verification" />
+<a name="Ex2Verification"></a>
 #### Verification ####
 
 You are now ready to execute the solution in the compute emulator. To enable the Table Storage trace listener dynamically without stopping the running service, you initially deploy the service with the _EnableTraceStorageTraceListener_ setting disabled and then, you change the setting in the configuration file to enable the listener and then upload it to re-configure the running service. Using the log viewer application, you examine the trace messages produced by the application.
@@ -635,7 +634,7 @@ You are now ready to execute the solution in the compute emulator. To enable the
 
 1. Finally, delete the running deployment in the compute emulator. To do this, right-click the deployment in the **Service Deployments** tree view and select **Remove**.
 
-<a name="Summary" />
+<a name="Summary"></a>
 ## Summary ##
 
 By completing this hands-on lab, you learnt how to apply simple debugging techniques to troubleshoot your Windows Azure application once you deploy it to the cloud. You saw how to use standard .NET diagnostics to write diagnostics output directly into table storage with a custom trace listener.
