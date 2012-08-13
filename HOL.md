@@ -34,6 +34,8 @@ The following is required to complete this hands-on lab:
 
 - [SQL Server 2012 Express Edition (or later)][4]
 
+- A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+
 [1]: http://msdn.microsoft.com/vstudio/products/
 [2]: http://go.microsoft.com/fwlink/?linkid=186916
 [3]: http://www.microsoft.com/windowsazure/sdk/
