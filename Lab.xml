@@ -12,7 +12,7 @@
 	<Description>This hands-on lab is a step-by-step guide that is designed to help you debug a simple application by configuring a special trace listener that can write its output directly into a table in Windows Azure storage emulator. To produce diagnostic data, you instrument the application to write its trace information using standard methods in the System.Diagnostics namespace. Finally, you create a simple log viewer application that can retrieve and display the contents of the diagnostics table.</Description> 
 	<Document ConversionType="Html">.\HOL.md</Document> 
 	<Title>Debugging Applications in Windows Azure</Title> 
-	<Version>1.0.0</Version> 
+	<Version>1.0.1</Version> 
 	<Source>.\source</Source> 
 	<DependencyChecker>.\Source\Setup\Dependencies.depi</DependencyChecker> 
 	<CustomProperties>    
