@@ -16,6 +16,7 @@
 	<Source>.\source</Source> 
 	<DependencyChecker>.\Source\Setup\Dependencies.depi</DependencyChecker> 
 	<CustomProperties>    
+  		<Property Name="ContentType" Value="VS2010" />	
 		<Property Name="GitHubRepository" Value="https://github.com/WindowsAzure-TrainingKit/HOL-DebuggingCloudServices" />
 	</CustomProperties>
 </Lab> 
