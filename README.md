@@ -1,4 +1,6 @@
-# Debugging Applications in Windows Azure #
+﻿# Debugging Applications in Windows Azure #
+
+> **Note:** A Visual Studio 2012 version of this Hands-on Lab can be found in [GitHub](https://github.com/WindowsAzure-TrainingKit/HOL-DebuggingCloudServices-VS2012).
 
 ## Hands-On Lab ##
 
